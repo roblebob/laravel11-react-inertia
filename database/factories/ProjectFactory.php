@@ -17,9 +17,10 @@ class ProjectFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->word(),
+            'name' => $this->faker->sentence(),
             'description' => $this->faker->realText(),
-            'image_path' => $this->faker->imageUrl(),
+            //'image_path' => $this->faker->imageUrl(),
+            'image_path' => 'https://picsum.photos/seed/' . $this->faker->uuid . '/640/480',
             'due_date' => $this->faker->dateTimeBetween('now', '+1 year'),
             'status' => $this->faker->randomElement(['pending', 'in_progress', 'completed']),
             'created_by' => 1,

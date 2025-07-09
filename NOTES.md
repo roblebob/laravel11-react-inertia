@@ -1,6 +1,6 @@
 [youtube](https://www.youtube.com/watch?v=VrQRa-afCAk&t=)
 
-current: 1:17:22
+current: 1:27:17
 
 ```bash
 composer create-project laravel/laravel laravel11-react-inertia
