@@ -1,6 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import {Head, Link} from "@inertiajs/react";
 import Pagination from "@/Components/Pagination.jsx";
+import {PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP} from "@/constant.jsx";
 
 export default function Index({auth, projects}) {
   return (
@@ -46,7 +47,12 @@ export default function Index({auth, projects}) {
                                                                     style={{width: '100px', height: 'auto'}}
                                                                     alt=""/></td>
                     <td className="border px-4 py-2 truncate">{project.name}</td>
-                    <td className="border px-4 py-2">{project.status}</td>
+                    <td
+                      className="border px-4 py-2">
+                      <span className={"px-2 py-1 rounded text-white " + PROJECT_STATUS_CLASS_MAP[project.status]}>
+                        {PROJECT_STATUS_TEXT_MAP[project.status]}
+                      </span>
+                    </td>
                     <td className="border px-4 py-2 text-nowrap">{project.created_at}</td>
                     <td className="border px-4 py-2 text-nowrap">{project.due_date}</td>
                     <td className="border px-4 py-2 whitespace-nowrap">{project.createdBy.name}</td>
