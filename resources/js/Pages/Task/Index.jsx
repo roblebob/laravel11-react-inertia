@@ -1,12 +1,12 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.jsx";
 import {Head, Link, router} from "@inertiajs/react";
 import Pagination from "@/Components/Pagination.jsx";
-import {PROJECT_STATUS_CLASS_MAP, PROJECT_STATUS_TEXT_MAP} from "@/constant.jsx";
+import {TASK_STATUS_CLASS_MAP, TASK_STATUS_TEXT_MAP} from "@/constant.jsx";
 import SelectInput from "@/Components/SelectInput.jsx";
 import TextInput from "@/Components/TextInput.jsx";
 import TableHeading from "@/Components/TableHeading.jsx";
 
-export default function Index({auth, projects, queryParams = null}) {
+export default function Index({auth, tasks, queryParams = null}) {
   queryParams = queryParams || {};
   const searchFieldChanged = (name, value) => {
     if (name) {
@@ -15,7 +15,7 @@ export default function Index({auth, projects, queryParams = null}) {
       delete queryParams[name];
     }
 
-    router.get(route('project.index'), queryParams);
+    router.get(route('task.index'), queryParams);
   };
   const onKeyPress = (name, e) => {
     if (e.key !== "Enter") return;
@@ -31,7 +31,7 @@ export default function Index({auth, projects, queryParams = null}) {
       queryParams.sort_direction = 'asc'; // Default to ascending if a new field is sorted
     }
 
-    router.get(route('project.index'), queryParams);
+    router.get(route('task.index'), queryParams);
   };
 
   return (
@@ -39,18 +39,18 @@ export default function Index({auth, projects, queryParams = null}) {
       user={auth.user}
       header={
         <h2 className="text-xl font-semibold leading-tight text-gray-800">
-          Projects
+          Tasks
         </h2>
       }
     >
-      <Head title="Projects"/>
+      <Head title="Tasks"/>
 
       <div className="py-12">
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
             <div className="p-6 text-gray-900">
 
-              {/*<pre>{JSON.stringify(projects, undefined, 2)}</pre>*/}
+              {/*<pre>{JSON.stringify(Tasks, undefined, 2)}</pre>*/}
 
               <div className="overflow-auto">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -115,7 +115,7 @@ export default function Index({auth, projects, queryParams = null}) {
                       <TextInput
                         className="w-full"
                         defaultValue={queryParams.name}
-                        placeholder="Project Name"
+                        placeholder="Task Name"
                         onBlur={(e) => searchFieldChanged('name', e.target.value)}
                         onKeyPress={(e) => onKeyPress('name', e)}
                       />
@@ -141,28 +141,28 @@ export default function Index({auth, projects, queryParams = null}) {
 
 
                   <tbody>
-                  {projects.data.map(project => (
-                    <tr key={project.id}
+                  {tasks.data.map(task => (
+                    <tr key={task.id}
                         className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td className="border px-4 py-2">{project.id}</td>
-                      <td className="border px-4 py-2 w-[100px]"><img src={project.image_path}
+                      <td className="border px-4 py-2">{task.id}</td>
+                      <td className="border px-4 py-2 w-[100px]"><img src={task.image_path}
                                                                       style={{width: '100px', height: 'auto'}}
                                                                       alt=""/></td>
-                      <td className="border px-4 py-2 truncate">{project.name}</td>
+                      <td className="border px-4 py-2 truncate">{task.name}</td>
                       <td
                         className="border px-4 py-2">
-                      <span className={"px-2 py-1 rounded text-white " + PROJECT_STATUS_CLASS_MAP[project.status]}>
-                        {PROJECT_STATUS_TEXT_MAP[project.status]}
+                      <span className={"px-2 py-1 rounded text-white " + TASK_STATUS_CLASS_MAP[task.status]}>
+                        {TASK_STATUS_TEXT_MAP[task.status]}
                       </span>
                       </td>
-                      <td className="border px-4 py-2 text-nowrap">{project.created_at}</td>
-                      <td className="border px-4 py-2 text-nowrap">{project.due_date}</td>
-                      <td className="border px-4 py-2 whitespace-nowrap">{project.createdBy.name}</td>
+                      <td className="border px-4 py-2 text-nowrap">{task.created_at}</td>
+                      <td className="border px-4 py-2 text-nowrap">{task.due_date}</td>
+                      <td className="border px-4 py-2 whitespace-nowrap">{task.createdBy.name}</td>
                       <td className="border px-4 py-2 text-right">
                         <Link className="font-medium text-blue-600 dark:text-blue-500 hover:underline mx-1"
-                              href={route('project.edit', project.id)}>Edit</Link>
+                              href={route('task.edit', task.id)}>Edit</Link>
                         <Link className="font-medium text-red-600 dark:text-red-500 hover:underline mx-1"
-                              href={route('project.destroy', project.id)}>Delete</Link>
+                              href={route('task.destroy', task.id)}>Delete</Link>
                       </td>
                     </tr>
                   ))}
@@ -170,7 +170,7 @@ export default function Index({auth, projects, queryParams = null}) {
                   </tbody>
                 </table>
               </div>
-              <Pagination links={projects.meta.links}/>
+              <Pagination links={tasks.meta.links}/>
 
             </div>
           </div>
