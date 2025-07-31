@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
+use App\Http\Resources\TaskResource;
 use App\Models\Project;
+use App\Models\Task;
 
 class ProjectController extends Controller
 {
@@ -57,7 +59,17 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        //
+        $tasks = Task::query()
+            ->where('project_id', $project->id)
+            ->paginate(10)->onEachSide(1);
+
+        return inertia(
+            'Project/Show', [
+                'tasks' => TaskResource::collection($tasks),
+                'project' => $project,
+                'queryParams' => request()->query() ?: null,
+            ]
+        );
     }
 
     /**

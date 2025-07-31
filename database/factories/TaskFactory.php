@@ -19,7 +19,8 @@ class TaskFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'description' => $this->faker->realText(),
-            'image_path' => $this->faker->imageUrl(),
+            //'image_path' => $this->faker->imageUrl(),
+            'image_path' => 'https://picsum.photos/seed/' . $this->faker->uuid . '/640/480',
             'status' => $this->faker->randomElement(['pending', 'in_progress', 'completed']),
             'priority' => $this->faker->randomElement(['low', 'medium', 'high']),
             'due_date' => $this->faker->dateTimeBetween('now', '+1 year'),

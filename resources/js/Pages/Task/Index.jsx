@@ -8,6 +8,8 @@ import TableHeading from "@/Components/TableHeading.jsx";
 
 export default function Index({auth, tasks, queryParams = null}) {
   queryParams = queryParams || {};
+
+
   const searchFieldChanged = (name, value) => {
     if (name) {
       queryParams[name] = value;
@@ -37,12 +39,9 @@ export default function Index({auth, tasks, queryParams = null}) {
   return (
     <AuthenticatedLayout
       user={auth.user}
-      header={
-        <h2 className="text-xl font-semibold leading-tight text-gray-800">
-          Tasks
-        </h2>
-      }
+      header={<h2 className="text-xl font-semibold leading-tight text-gray-800">Tasks</h2>}
     >
+
       <Head title="Tasks"/>
 
       <div className="py-12">

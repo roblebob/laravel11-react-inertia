@@ -148,10 +148,15 @@ export default function Index({auth, projects, queryParams = null}) {
                       <td className="border px-4 py-2 w-[100px]"><img src={project.image_path}
                                                                       style={{width: '100px', height: 'auto'}}
                                                                       alt=""/></td>
-                      <td className="border px-4 py-2 truncate">{project.name}</td>
+                      <th className="border px-4 py-2 truncate hover:underline text-white">
+                        <Link href={route('project.show', project.id)}>
+                          {project.name}
+                        </Link>
+                      </th>
                       <td
                         className="border px-4 py-2">
-                      <span className={"px-2 py-1 rounded text-white " + PROJECT_STATUS_CLASS_MAP[project.status]}>
+                      <span
+                        className={"px-2 py-1 rounded text-gray-100 text-nowrap" + PROJECT_STATUS_CLASS_MAP[project.status]}>
                         {PROJECT_STATUS_TEXT_MAP[project.status]}
                       </span>
                       </td>
